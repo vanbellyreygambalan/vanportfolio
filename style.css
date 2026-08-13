@@ -1,25 +1,150 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    background: #ffffff;
+    color: #222222;
+}
+
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #ffffff;
-    padding: 1rem 2rem;
+    background: #ffffff;
+    padding: 1rem 5%;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
     z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     gap: 2rem;
+}
+
+.nav-links a {
+    color: #222222;
+    text-decoration: none;
+}
+
+
+
+.home {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 10% 50px;
+    gap: 50px;
+}
+
+.home-content {
+    flex: 1;
+}
+
+.greeting {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.home-content h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.home-content h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.description {
+    max-width: 550px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+
+.home-image {
+    flex-shrink: 0;
+}
+
+.home-image img {
+    width: 800px;          /* Increase this number to make it bigger */
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+
+.home-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.home-buttons a {
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+}
+
+.about {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 100px 10% 50px;
+}
+
+.about h2 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+.about-container {
+    max-width: 900px;
+}
+
+.about-container p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.about-container strong {
+    font-weight: bold;
+}
+
+.about-highlights {
+    display: flex;
+    gap: 50px;
+    margin-top: 30px;
+}
+
+.about-card {
+    flex: 1;
+}
+
+.about-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.about-card p {
+    line-height: 1.7;
 }
