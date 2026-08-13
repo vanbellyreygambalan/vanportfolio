@@ -148,3 +148,29 @@ body {
 .about-card p {
     line-height: 1.7;
 }
+
+.skills {
+    padding: 4rem 10%;
+}
+
+.skills-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.skill-category {
+    flex: 1;
+    min-width: 250px;
+}
+
+.skill-category ul {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.skill-category li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
