@@ -42,8 +42,9 @@
     </div>
 
     <div class="home-image">
-        <div class="image-container">
-            <img src="assets/profile/me.png" alt="VanBelly Rey">
+        <div class="image-container" data-tilt>
+            <img class="img-base" src="assets/profile/me.png" alt="VanBelly Rey">
+            <img class="img-alt" src="assets/profile/me-alt.png" alt="VanBelly Rey, alternate photo">
         </div>
     </div>
     </section>
@@ -124,5 +125,49 @@
             </div>
         </div>
     </section>
+
+    <section id="projects" class="projects">
+        <h2>Projects</h2>
+        <div class="projects-container">
+
+            <article class="project-card">
+                <div class="project-media">
+                    <img class="project-shot is-visible" data-shot="1" src="assets/sgod/admin-dashboard.png" alt="SGOD dashboard showing district enrollment overview">
+                    <img class="project-shot" data-shot="2" src="assets/projects/sgod-import.png" alt="Excel import screen for uploading DepEd BEIS enrollment files">
+                    <img class="project-shot" data-shot="3" src="assets/projects/sgod-reports.png" alt="District-level enrollment report and summary view">
+                    
+                    <div class="project-overlay">
+                        <p class="project-desc">
+                            A file management system built for the SGOD office to
+                            organize, import, and track student enrollment data
+                            submitted by schools across the district — replacing
+                            scattered Excel files with one searchable, role-based
+                            system. Built solo during my internship, from database
+                            design to the final interface.
+                        </p>
+                        <div class="project-shot-buttons">
+                            <button type="button" class="shot-btn is-current" data-target="1">Dashboard</button>
+                            <button type="button" class="shot-btn" data-target="2">Excel Import</button>
+                            <button type="button" class="shot-btn" data-target="3">Reports</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-info">
+                    <h3>SGOD Student Data File Management</h3>
+                    <p class="project-role">Internship project &mdash; sole developer</p>
+                    <ul class="project-tags">
+                        <li>PHP</li>
+                        <li>Laravel</li>
+                        <li>MySQL</li>
+                        <li>Excel Import</li>
+                    </ul>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>

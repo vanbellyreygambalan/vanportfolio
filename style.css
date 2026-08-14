@@ -50,10 +50,12 @@ body {
     justify-content: space-between;
     padding: 100px 10% 50px;
     gap: 50px;
+    flex-wrap: wrap;
 }
 
 .home-content {
-    flex: 1;
+    flex: 1 1 420px;
+    min-width: 0;
 }
 
 .greeting {
@@ -80,15 +82,110 @@ body {
 }
 
 
+/* --- Profile image: sizing + 3D tilt hover --- */
+
 .home-image {
-    flex-shrink: 0;
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
-.home-image img {
-    width: 800px;          /* Increase this number to make it bigger */
-    height: auto;
+.image-container {
+    --w-x: 50%;
+    --w-y: 50%;
+    --r-x: 0deg;
+    --r-y: 0deg;
+
+    position: relative;
+    width: min(360px, 30vw);
+    aspect-ratio: 4 / 5;
+    border-radius: 16px;
+    overflow: hidden;
+    perspective: 1000px;
+    transform: rotateY(var(--r-x)) rotateX(var(--r-y));
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(.03, .98, .52, .99);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.image-container:hover {
+    transition: transform 0.1s linear;
+}
+
+.image-container img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    border-radius: 12px;
+    transform: translateZ(30px) scale(1.06);
+    transition: opacity 0.45s ease;
+}
+
+/* base photo shown by default, alt photo swaps in on hover / press */
+.image-container .img-base {
+    opacity: 1;
+}
+
+.image-container .img-alt {
+    opacity: 0;
+}
+
+.image-container:hover .img-base,
+.image-container.is-active .img-base {
+    opacity: 0;
+}
+
+.image-container:hover .img-alt,
+.image-container.is-active .img-alt {
+    opacity: 1;
+}
+
+/* glare that follows the cursor */
+.image-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at var(--w-x) var(--w-y),
+        rgba(255, 255, 255, 0.35),
+        rgba(255, 255, 255, 0) 45%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.image-container:hover::before {
+    opacity: 1;
+}
+
+@media (max-width: 900px) {
+    .home {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .home-content {
+        flex: 1 1 auto;
+    }
+
+    .description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .home-buttons {
+        justify-content: center;
+    }
+
+    .image-container {
+        width: min(300px, 70vw);
+    }
 }
 
 
@@ -173,4 +270,138 @@ body {
 .skill-category li {
     padding: 8px 0;
     border-bottom: 1px solid #eee;
+}
+
+
+/* --- Projects --- */
+
+.projects {
+    padding: 4rem 10%;
+}
+
+.projects h2 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+.projects-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.project-card {
+    flex: 1 1 340px;
+    max-width: 420px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.project-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: #f2f2f2;
+    overflow: hidden;
+}
+
+.project-shot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.project-shot.is-visible {
+    opacity: 1;
+}
+
+/* dark overlay revealed on hover / press / keyboard focus */
+.project-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 14px;
+    padding: 20px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.82) 75%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay,
+.project-card.is-touched .project-overlay,
+.project-card:focus-within .project-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.project-desc {
+    color: #ffffff;
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.project-shot-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.shot-btn {
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.shot-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.shot-btn.is-current {
+    background: #ffffff;
+    color: #111111;
+    border-color: #ffffff;
+}
+
+.project-info {
+    padding: 18px 20px 20px;
+}
+
+.project-info h3 {
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+}
+
+.project-role {
+    font-size: 0.85rem;
+    color: #555555;
+    margin-bottom: 12px;
+}
+
+.project-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.project-tags li {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    color: #333333;
 }
