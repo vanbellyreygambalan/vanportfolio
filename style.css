@@ -296,6 +296,7 @@ body {
     border: 1px solid #eee;
     border-radius: 12px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .project-media {
@@ -404,4 +405,153 @@ body {
     border: 1px solid #ddd;
     border-radius: 999px;
     color: #333333;
+}
+
+
+/* --- Project Modal --- */
+
+.project-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.project-modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.modal-content {
+    position: relative;
+    background: #ffffff;
+    border-radius: 14px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.project-modal.is-open .modal-content {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-media {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: #f2f2f2;
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
+}
+
+.modal-shot {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #111;
+    display: block;
+}
+
+.modal-info {
+    padding: 24px 28px 28px;
+}
+
+.modal-title {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+
+.modal-role {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 14px;
+}
+
+.modal-desc {
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.modal-shot-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.modal-shot-buttons button {
+    font-family: inherit;
+    font-size: 0.82rem;
+    color: #222;
+    background: #f2f2f2;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 7px 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.modal-shot-buttons button:hover {
+    background: #e6e6e6;
+}
+
+.modal-shot-buttons button.is-current {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+}
+
+.modal-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.modal-tags li {
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border: 1px solid #ddd;
+    border-radius: 999px;
+    color: #333;
+}
+
+body.modal-open {
+    overflow: hidden;
 }

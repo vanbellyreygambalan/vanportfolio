@@ -39,7 +39,8 @@ document.querySelectorAll('.project-card').forEach((card) => {
     const buttons = card.querySelectorAll('.shot-btn');
 
     buttons.forEach((btn) => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); // don't let this bubble up and open the modal
             const target = btn.dataset.target;
 
             buttons.forEach((b) => b.classList.toggle('is-current', b === btn));
@@ -52,3 +53,82 @@ document.querySelectorAll('.project-card').forEach((card) => {
     card.addEventListener('pointerleave', () => card.classList.remove('is-touched'));
     card.addEventListener('pointercancel', () => card.classList.remove('is-touched'));
 });
+
+// Project modal: click a card to see a bigger view of its screenshots
+(function () {
+    const modal = document.getElementById('projectModal');
+    if (!modal) return;
+
+    const modalShot = modal.querySelector('.modal-shot');
+    const modalTitle = modal.querySelector('.modal-title');
+    const modalRole = modal.querySelector('.modal-role');
+    const modalDesc = modal.querySelector('.modal-desc');
+    const modalButtons = modal.querySelector('.modal-shot-buttons');
+    const modalTags = modal.querySelector('.modal-tags');
+
+    let lastFocused = null;
+
+    function openModal(card) {
+        const shots = [...card.querySelectorAll('.project-shot')];
+        const title = card.querySelector('.project-info h3')?.textContent || '';
+        const role = card.querySelector('.project-role')?.textContent || '';
+        const desc = card.querySelector('.project-desc')?.textContent.trim() || '';
+        const tags = [...card.querySelectorAll('.project-tags li')].map(li => li.textContent);
+        const currentShot = card.querySelector('.project-shot.is-visible') || shots[0];
+
+        modalTitle.textContent = title;
+        modalRole.textContent = role;
+        modalDesc.textContent = desc;
+        modalShot.src = currentShot.src;
+        modalShot.alt = currentShot.alt;
+
+        modalTags.innerHTML = '';
+        tags.forEach(t => {
+            const li = document.createElement('li');
+            li.textContent = t;
+            modalTags.appendChild(li);
+        });
+
+        modalButtons.innerHTML = '';
+        shots.forEach(shot => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = shot.alt.split(',')[0] || `View ${shot.dataset.shot}`;
+            btn.classList.toggle('is-current', shot === currentShot);
+            btn.addEventListener('click', () => {
+                modalShot.src = shot.src;
+                modalShot.alt = shot.alt;
+                modalButtons.querySelectorAll('button').forEach(b => b.classList.remove('is-current'));
+                btn.classList.add('is-current');
+            });
+            modalButtons.appendChild(btn);
+        });
+
+        lastFocused = document.activeElement;
+        modal.classList.add('is-open');
+        document.body.classList.add('modal-open');
+        modal.querySelector('.modal-close').focus();
+    }
+
+    function closeModal() {
+        modal.classList.remove('is-open');
+        document.body.classList.remove('modal-open');
+        if (lastFocused) lastFocused.focus();
+    }
+
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            // don't open the modal if a shot-switch button was clicked
+            if (e.target.closest('.shot-btn')) return;
+            openModal(card);
+        });
+    });
+
+    modal.querySelectorAll('[data-close]').forEach(el => {
+        el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+})();

@@ -44,7 +44,7 @@
     <div class="home-image">
         <div class="image-container" data-tilt>
             <img class="img-base" src="assets/profile/me.png" alt="VanBelly Rey">
-            <img class="img-alt" src="assets/profile/me-alt.png" alt="VanBelly Rey, alternate photo">
+            <img class="img-alt" src="assets/profile/me1.png" alt="VanBelly Rey, alternate photo">
         </div>
     </div>
     </section>
@@ -130,12 +130,12 @@
         <h2>Projects</h2>
         <div class="projects-container">
 
-            <article class="project-card">
+            <article class="project-card" data-modal="1">
                 <div class="project-media">
                     <img class="project-shot is-visible" data-shot="1" src="assets/sgod/admin-dashboard.png" alt="SGOD dashboard showing district enrollment overview">
                     <img class="project-shot" data-shot="2" src="assets/projects/sgod-import.png" alt="Excel import screen for uploading DepEd BEIS enrollment files">
                     <img class="project-shot" data-shot="3" src="assets/projects/sgod-reports.png" alt="District-level enrollment report and summary view">
-                    
+
                     <div class="project-overlay">
                         <p class="project-desc">
                             A file management system built for the SGOD office to
@@ -167,6 +167,26 @@
 
         </div>
     </section>
+
+    <!-- Project Modal -->
+    <div class="project-modal" id="projectModal">
+        <div class="modal-backdrop" data-close></div>
+        <div class="modal-content">
+            <button type="button" class="modal-close" data-close aria-label="Close">&times;</button>
+
+            <div class="modal-media">
+                <img class="modal-shot" src="" alt="">
+            </div>
+
+            <div class="modal-info">
+                <h3 class="modal-title"></h3>
+                <p class="modal-role"></p>
+                <p class="modal-desc"></p>
+                <div class="modal-shot-buttons"></div>
+                <ul class="modal-tags"></ul>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
