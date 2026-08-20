@@ -297,6 +297,8 @@ body {
     border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
 
 .project-media {
@@ -379,6 +381,9 @@ body {
 
 .project-info {
     padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .project-info h3 {
@@ -405,6 +410,62 @@ body {
     border: 1px solid #ddd;
     border-radius: 999px;
     color: #333333;
+}
+
+/* --- Project action buttons (GitHub / Thesis Paper) ---
+   Sits at the bottom of the card, pinned by the flex column above so
+   cards with different tag counts still line their buttons up. */
+
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+.project-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 9px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.project-btn:active {
+    transform: translateY(1px);
+}
+
+.project-btn svg {
+    flex-shrink: 0;
+}
+
+.github-btn {
+    background: #1b1f23;
+    color: #ffffff;
+    border-color: #1b1f23;
+}
+
+.github-btn:hover {
+    background: #000000;
+    border-color: #000000;
+}
+
+.thesis-btn {
+    background: #ffffff;
+    color: #222222;
+    border-color: #d5d5d5;
+}
+
+.thesis-btn:hover {
+    background: #f2f2f2;
+    border-color: #b5b5b5;
 }
 
 
@@ -542,6 +603,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-bottom: 18px;
 }
 
 .modal-tags li {
@@ -550,6 +612,12 @@ body {
     border: 1px solid #ddd;
     border-radius: 999px;
     color: #333;
+}
+
+.modal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 body.modal-open {

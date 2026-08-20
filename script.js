@@ -69,7 +69,9 @@ document.querySelectorAll('.project-card').forEach((card) => {
 });
 
 // Project modal: click a card to see a bigger view of its screenshots.
-// The modal description also follows the currently selected shot.
+// The modal description also follows the currently selected shot, and
+// the GitHub / Thesis Paper buttons from the card are mirrored in the
+// modal footer so they're reachable from the enlarged view too.
 (function () {
     const modal = document.getElementById('projectModal');
     if (!modal) return;
@@ -80,6 +82,7 @@ document.querySelectorAll('.project-card').forEach((card) => {
     const modalDesc = modal.querySelector('.modal-desc');
     const modalButtons = modal.querySelector('.modal-shot-buttons');
     const modalTags = modal.querySelector('.modal-tags');
+    const modalLinks = modal.querySelector('.modal-links');
 
     let lastFocused = null;
 
@@ -88,6 +91,7 @@ document.querySelectorAll('.project-card').forEach((card) => {
         const title = card.querySelector('.project-info h3')?.textContent || '';
         const role = card.querySelector('.project-role')?.textContent || '';
         const tags = [...card.querySelectorAll('.project-tags li')].map(li => li.textContent);
+        const links = [...card.querySelectorAll('.project-links a')];
         const currentShot = card.querySelector('.project-shot.is-visible') || shots[0];
 
         modalTitle.textContent = title;
@@ -101,6 +105,11 @@ document.querySelectorAll('.project-card').forEach((card) => {
             const li = document.createElement('li');
             li.textContent = t;
             modalTags.appendChild(li);
+        });
+
+        modalLinks.innerHTML = '';
+        links.forEach(link => {
+            modalLinks.appendChild(link.cloneNode(true));
         });
 
         modalButtons.innerHTML = '';
@@ -133,8 +142,9 @@ document.querySelectorAll('.project-card').forEach((card) => {
 
     document.querySelectorAll('.project-card').forEach(card => {
         card.addEventListener('click', (e) => {
-            // don't open the modal if a shot-switch button was clicked
-            if (e.target.closest('.shot-btn')) return;
+            // don't open the modal if a shot-switch button or a
+            // project link (GitHub / Thesis Paper) was clicked
+            if (e.target.closest('.shot-btn') || e.target.closest('.project-links')) return;
             openModal(card);
         });
     });
