@@ -34,9 +34,19 @@ document.querySelectorAll('[data-tilt]').forEach((el) => {
 
 // Project cards: switch the visible screenshot when a shot button is
 // clicked, and reveal the overlay on tap/press for touch devices.
+// Each shot carries its own description (data-desc), so the overlay
+// text updates to match whichever screenshot is currently showing.
 document.querySelectorAll('.project-card').forEach((card) => {
     const shots = card.querySelectorAll('.project-shot');
     const buttons = card.querySelectorAll('.shot-btn');
+    const descEl = card.querySelector('.project-desc');
+
+    function setDesc(shot) {
+        if (descEl && shot) descEl.textContent = shot.dataset.desc || '';
+    }
+
+    // Initialize with whichever shot starts visible.
+    setDesc(card.querySelector('.project-shot.is-visible') || shots[0]);
 
     buttons.forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -44,7 +54,11 @@ document.querySelectorAll('.project-card').forEach((card) => {
             const target = btn.dataset.target;
 
             buttons.forEach((b) => b.classList.toggle('is-current', b === btn));
-            shots.forEach((shot) => shot.classList.toggle('is-visible', shot.dataset.shot === target));
+            shots.forEach((shot) => {
+                const isVisible = shot.dataset.shot === target;
+                shot.classList.toggle('is-visible', isVisible);
+                if (isVisible) setDesc(shot);
+            });
         });
     });
 
@@ -54,7 +68,8 @@ document.querySelectorAll('.project-card').forEach((card) => {
     card.addEventListener('pointercancel', () => card.classList.remove('is-touched'));
 });
 
-// Project modal: click a card to see a bigger view of its screenshots
+// Project modal: click a card to see a bigger view of its screenshots.
+// The modal description also follows the currently selected shot.
 (function () {
     const modal = document.getElementById('projectModal');
     if (!modal) return;
@@ -72,13 +87,12 @@ document.querySelectorAll('.project-card').forEach((card) => {
         const shots = [...card.querySelectorAll('.project-shot')];
         const title = card.querySelector('.project-info h3')?.textContent || '';
         const role = card.querySelector('.project-role')?.textContent || '';
-        const desc = card.querySelector('.project-desc')?.textContent.trim() || '';
         const tags = [...card.querySelectorAll('.project-tags li')].map(li => li.textContent);
         const currentShot = card.querySelector('.project-shot.is-visible') || shots[0];
 
         modalTitle.textContent = title;
         modalRole.textContent = role;
-        modalDesc.textContent = desc;
+        modalDesc.textContent = currentShot.dataset.desc || '';
         modalShot.src = currentShot.src;
         modalShot.alt = currentShot.alt;
 
@@ -98,6 +112,7 @@ document.querySelectorAll('.project-card').forEach((card) => {
             btn.addEventListener('click', () => {
                 modalShot.src = shot.src;
                 modalShot.alt = shot.alt;
+                modalDesc.textContent = shot.dataset.desc || '';
                 modalButtons.querySelectorAll('button').forEach(b => b.classList.remove('is-current'));
                 btn.classList.add('is-current');
             });
