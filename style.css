@@ -623,3 +623,112 @@ body {
 body.modal-open {
     overflow: hidden;
 }
+
+
+/* --- Experience & Education --- */
+
+.experience,
+.education {
+    padding: 4rem 10%;
+}
+
+.experience h2,
+.education h2 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+.experience-container,
+.education-container {
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 24px;
+    border-left: 3px solid #222222;
+}
+
+.timeline-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+}
+
+.timeline-org {
+    font-size: 0.95rem;
+    color: #555555;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.timeline-desc {
+    line-height: 1.7;
+    color: #333333;
+}
+
+
+/* --- Contact --- */
+
+.contact {
+    padding: 4rem 10% 6rem;
+}
+
+.contact h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.contact-container {
+    max-width: 600px;
+}
+
+.contact-intro {
+    line-height: 1.7;
+    margin-bottom: 24px;
+    color: #333333;
+}
+
+.contact-details {
+    list-style: none;
+    margin-bottom: 30px;
+}
+
+.contact-details li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.contact-label {
+    font-weight: bold;
+    min-width: 70px;
+}
+
+.contact-details a {
+    color: #222222;
+    text-decoration: none;
+}
+
+.contact-details a:hover {
+    text-decoration: underline;
+}
+
+.contact-btn {
+    display: inline-block;
+    background: #1b1f23;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.contact-btn:hover {
+    background: #000000;
+}
